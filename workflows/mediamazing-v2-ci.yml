@@ -1,0 +1,20 @@
+name: mediamazing-v2-ci
+on:
+  push:
+    paths:
+      - 'mediamazing-v2/**'
+      - '.github/workflows/mediamazing-v2-ci.yml'
+  pull_request:
+    paths:
+      - 'mediamazing-v2/**'
+      - '.github/workflows/mediamazing-v2-ci.yml'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: mediamazing-v2
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build Docker image
+        run: docker build -t mediamazing-v2:ci .

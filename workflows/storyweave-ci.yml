@@ -1,0 +1,20 @@
+name: storyweave-ci
+on:
+  push:
+    paths:
+      - 'storyweave/**'
+      - '.github/workflows/storyweave-ci.yml'
+  pull_request:
+    paths:
+      - 'storyweave/**'
+      - '.github/workflows/storyweave-ci.yml'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: storyweave
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build Docker image
+        run: docker build -t storyweave:ci .

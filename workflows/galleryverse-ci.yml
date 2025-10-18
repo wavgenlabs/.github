@@ -1,0 +1,20 @@
+name: galleryverse-ci
+on:
+  push:
+    paths:
+      - 'galleryverse/**'
+      - '.github/workflows/galleryverse-ci.yml'
+  pull_request:
+    paths:
+      - 'galleryverse/**'
+      - '.github/workflows/galleryverse-ci.yml'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: galleryverse
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build Docker image
+        run: docker build -t galleryverse:ci .

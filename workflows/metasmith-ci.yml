@@ -1,0 +1,26 @@
+name: metasmith-ci
+
+on:
+  push:
+    paths:
+      - 'metasmith/**'
+      - '.github/workflows/metasmith-ci.yml'
+  pull_request:
+    paths:
+      - 'metasmith/**'
+      - '.github/workflows/metasmith-ci.yml'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: metasmith
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build Docker image
+        run: docker build -t metasmith:ci .
+      - name: Lint (skip if none)
+        run: |
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          echo "No linters configured yet"
